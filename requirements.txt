@@ -5,6 +5,7 @@ Flask>=2.0
 # joblib
 # xgboost
 
+gunicorn
 Flask>=2.0
 xgboost==3.0.0
 pandas
