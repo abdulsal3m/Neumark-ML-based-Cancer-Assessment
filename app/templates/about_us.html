@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About Us - Neumark</title>
+    <link rel="stylesheet" href="/static/css/about_us.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="pfizer-style">
+    <header class="site-header">
+        <div class="navbar-container">
+            <div class="logo">
+                <a href="/">
+                    <img src="/static/images/neumark2.png" alt="Neumark Logo" class="logo-img">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('assessment') }}">Start Assessment</a>
+                <a href="{{ url_for('about_us') }}">About Us</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main class="main-content">
+        
+
+        <!-- Main About Content Section -->
+        <section class="about-main-content">
+            <div class="about-container">
+                <!-- Mission Statement -->
+                <div class="about-section mission-section">
+                    <h2 class="section-title">Our Mission</h2>
+                    <p class="section-text">
+                        At Neumark, we believe that early awareness saves lives. Our mission is to provide accessible, 
+                        data-driven risk assessments that empower individuals to take proactive steps toward their 
+                        respiratory health before symptoms appear.
+                    </p>
+                    <p class="section-text highlight-text">
+                        By combining multiple machine learning models with comprehensive health data, we aim to reduce the 
+                        global burden of lung cancer through early detection and prevention.
+                    </p>
+                </div>
+
+                <!-- Our Approach Section with Stats -->
+                <div class="about-section approach-section">
+                    <h2 class="section-title">Our Approach</h2>
+                    <div class="approach-stats-container">
+                        <div class="approach-stat-item">
+                            <span class="stat-number">90%</span>
+                            <p class="stat-description">Random Forest model accuracy</p>
+                        </div>
+                        <div class="approach-stat-item">
+                            <span class="stat-number">89.5%</span>
+                            <p class="stat-description">XGBoost model accuracy</p>
+                        </div>
+                        <div class="approach-stat-item">
+                            <span class="stat-number">80.5%</span>
+                            <p class="stat-description">Logistic Regression accuracy</p>
+                        </div>
+                    </div>
+                    <p class="section-text">
+                        Neumark's assessment tool leverages a weighted ensemble of three machine learning algorithms: Random Forest, XGBoost, and Logistic Regression. 
+                        By analyzing 23 key risk factors including lifestyle choices, environmental exposures, genetic predispositions, and medical symptoms, 
+                        our system calculates personalized risk profiles with high accuracy.
+                    </p>
+                </div>
+
+                <!-- Methodology Section -->
+                <div class="about-section methodology-section">
+                    <h2 class="section-title">Our Methodology</h2>
+                    <div class="methodology-steps">
+                        <div class="methodology-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3 class="step-title">Comprehensive Data Collection</h3>
+                                <p class="step-description">
+                                    Our assessment captures 23 key factors including age, gender, environmental exposures (air pollution, occupational hazards), 
+                                    lifestyle factors (smoking, alcohol use, diet), medical history (genetic risk, chronic lung disease), and symptoms 
+                                    (chest pain, coughing of blood, fatigue, shortness of breath).
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="methodology-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3 class="step-title">Advanced Multi-Model Analysis</h3>
+                                <p class="step-description">
+                                    Your data is processed through three distinct machine learning models (Random Forest, XGBoost, and Logistic Regression) 
+                                    with appropriate feature normalization. We then calculate a weighted ensemble prediction that leverages the strengths of 
+                                    each algorithm, producing a more reliable risk assessment than any single model could provide.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="methodology-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3 class="step-title">Risk Factor Categorization</h3>
+                                <p class="step-description">
+                                    We analyze your individual risk factors using specialized thresholds to identify both positive health factors and areas of concern. 
+                                    For each risk factor, we determine whether high or low values represent increased risk, allowing for personalized 
+                                    recommendations based on your specific profile.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="methodology-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h3 class="step-title">Personalized Report with Actionable Recommendations</h3>
+                                <p class="step-description">
+                                    You receive a comprehensive risk assessment with your overall risk level, detailed model scores, and personalized 
+                                    recommendations prioritized by your highest risk factors. For high-risk individuals, we recommend clinical screening, 
+                                    while providing tailored lifestyle modifications for all risk levels.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Technology Stack Section -->
+                <!-- Technology Stack Section -->
+                <div class="about-section technology-section">
+                    <h2 class="section-title">Our Technology</h2>
+                    
+                    
+                    <div class="technology-cards">
+                        <div class="tech-card">
+                            <div class="tech-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3 class="tech-title">Data-Driven Prediction</h3>
+                            <p class="tech-description">
+                                Our <span class="tech-highlight">ensemble machine learning</span> approach combines three specialized algorithms for superior accuracy over any single model.
+                            </p>
+                            <div class="tech-model-detail">
+                                <div class="tech-model-feature">
+                                    <span class="feature-dot"></span>
+                                    <span>Random Forest</span>
+                                </div>
+                                <div class="tech-progress-wrapper">
+                                    <div class="tech-progress-bar accuracy-90"></div>
+                                </div>
+                                <div class="tech-stat">90% accuracy</div>
+                            </div>
+                            <div class="tech-model-detail">
+                                <div class="tech-model-feature">
+                                    <span class="feature-dot"></span>
+                                    <span>XGBoost</span>
+                                </div>
+                                <div class="tech-progress-wrapper">
+                                    <div class="tech-progress-bar accuracy-89"></div>
+                                </div>
+                                <div class="tech-stat">89.5% accuracy</div>
+                            </div>
+                            <div class="tech-model-detail">
+                                <div class="tech-model-feature">
+                                    <span class="feature-dot"></span>
+                                    <span>Logistic Regression</span>
+                                </div>
+                                <div class="tech-progress-wrapper">
+                                    <div class="tech-progress-bar accuracy-80"></div>
+                                </div>
+                                <div class="tech-stat">80.5% accuracy</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-card">
+                            <div class="tech-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="tech-title">Advanced Data Processing</h3>
+                            <p class="tech-description">
+                                Our system employs <span class="tech-highlight">multi-factor normalization</span> techniques to ensure accurate processing of diverse health data.
+                            </p>
+                            <div class="tech-model-detail">
+                                <div class="tech-model-feature">
+                                    <span class="feature-dot"></span>
+                                    <span>Robust Scaling for Age Data</span>
+                                </div>
+                            </div>
+                            <div class="tech-model-detail">
+                                <div class="tech-model-feature">
+                                    <span class="feature-dot"></span>
+                                    <span>Ordinal Encoding for Categories</span>
+                                </div>
+                            </div>
+                            <div class="tech-model-detail">
+                                <div class="tech-model-feature">
+                                    <span class="feature-dot"></span>
+                                    <span>Feature Importance Analysis</span>
+                                </div>
+                                <div class="tech-progress-wrapper">
+                                    <div class="tech-progress-bar confidence-95"></div>
+                                </div>
+                                <div class="tech-stat">95% confidence interval</div>
+                            </div>
+                        </div>
+                        
+                        <div class="tech-card">
+                            <div class="tech-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="tech-title">Risk Stratification Engine</h3>
+                            <p class="tech-description">
+                                Our <span class="tech-highlight">proprietary risk system</span> categorizes patients into risk tiers with specialized thresholds calibrated through clinical validation.
+                            </p>
+                            <div class="tech-model-detail">
+                                <div class="tech-model-feature">
+                                    <span class="feature-dot"></span>
+                                    <span>Low Risk: &lt;30% probability</span>
+                                </div>
+                            </div>
+                            <div class="tech-model-detail">
+                                <div class="tech-model-feature">
+                                    <span class="feature-dot"></span>
+                                    <span>Medium Risk: 30-60% probability</span>
+                                </div>
+                            </div>
+                            <div class="tech-model-detail">
+                                <div class="tech-model-feature">
+                                    <span class="feature-dot"></span>
+                                    <span>High Risk: &gt;60% probability</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+
+                <!-- Medical Disclaimer Section -->
+                <div class="about-section disclaimer-section">
+                    <h2 class="section-title">Medical Disclaimer</h2>
+                    <div class="disclaimer-content">
+                        <p class="disclaimer-text">
+                            The Neumark assessment tool provides an estimation of risk based on known factors and is not a 
+                            diagnostic tool. Results should be discussed with healthcare professionals and are not a substitute 
+                            for medical screening or consultation.
+                        </p>
+                        <p class="disclaimer-text">
+                            If you are experiencing symptoms such as chest pain, coughing of blood, or unexplained weight loss, 
+                            please consult with a healthcare provider immediately. Early medical attention is crucial for respiratory conditions.
+                        </p>
+                    </div>
+                    <a href="/assessment" class="button disclaimer-button">Take Assessment Now <span class="arrow">&#8594;</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        
+        <p class="copyright">&copy; 2025 Neumark</p>
+    </footer>
+    <!-- Add Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

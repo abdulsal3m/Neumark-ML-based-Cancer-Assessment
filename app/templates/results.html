@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }} - Neumark</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/results.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="pfizer-style">
+    <header class="site-header">
+        <div class="navbar-container">
+            <div class="logo">
+                <a href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='images/neumark2.png') }}" alt="Neumark Logo" class="logo-img">
+                </a>
+            </div>
+            <nav class="main-nav">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('assessment') }}">Start Assessment</a>
+                <a href="{{ url_for('about_us') }}">About Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="results-section">
+            <div class="about-container">
+                <div class="about-section">
+                    <h2 class="section-title">Assessment Results</h2>
+                    
+                    <!-- Risk Level Card -->
+                    <div class="results-card risk-level-card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h3 class="card-title">Overall Risk Level</h3>
+                        <div class="risk-percentage">
+                            <span class="stat-number">{{ results.avg_score }}%</span>
+                            <span class="risk-level-badge {{ results.overall_level | lower }}">{{ results.overall_level }}</span>
+                        </div>
+                        <p class="card-description">
+                            Your assessment indicates a {{ results.overall_level | lower }} risk profile based on the factors you provided.
+                        </p>
+                    </div>
+                    
+                    <!-- Model Predictions Section -->
+                    <div class="about-section model-section">
+                        <h2 class="section-title">Model Predictions</h2>
+                        <p class="section-text">
+                            Our ensemble approach combines three specialized machine learning models to provide a comprehensive risk assessment.
+                        </p>
+                        <div class="chart-wrapper model-comparison-wrapper">
+                            <canvas id="modelComparisonChart"></canvas>
+                        </div>
+                        <div class="tech-model-details">
+                            <div class="tech-model-detail">
+                                <div class="tech-model-feature">
+                                    <span class="feature-dot"></span>
+                                    <span>Random Forest: {{ results.rf_score }}% probability</span>
+                                </div>
+                                <div class="tech-progress-wrapper">
+                                    <div class="tech-progress-bar rf-score" style="width: {{ results.rf_score }}%"></div>
+                                </div>
+                            </div>
+                            <div class="tech-model-detail">
+                                <div class="tech-model-feature">
+                                    <span class="feature-dot"></span>
+                                    <span>XGBoost: {{ results.xgb_score }}% probability</span>
+                                </div>
+                                <div class="tech-progress-wrapper">
+                                    <div class="tech-progress-bar xgb-score" style="width: {{ results.xgb_score }}%"></div>
+                                </div>
+                            </div>
+                            <div class="tech-model-detail">
+                                <div class="tech-model-feature">
+                                    <span class="feature-dot"></span>
+                                    <span>Logistic Regression: {{ results.lr_score }}% probability</span>
+                                </div>
+                                <div class="tech-progress-wrapper">
+                                    <div class="tech-progress-bar lr-score" style="width: {{ results.lr_score }}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Risk Factors Analysis -->
+                    <div class="about-section factors-section">
+                        <h2 class="section-title">Risk Profile Analysis</h2>
+                        <p class="section-text">
+                            This analysis identifies the key factors that influence your risk assessment.
+                        </p>
+                        
+                        <div class="factors-charts-container">
+                            <div class="factor-chart-card">
+                                <div class="card-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <h3 class="card-title">Risk Factors</h3>
+                                <div class="pie-chart-container">
+                                    <canvas id="riskFactorsChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="factor-chart-card">
+                                <div class="card-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h3 class="card-title">Protective Factors</h3>
+                                <div class="pie-chart-container">
+                                    <canvas id="positiveFactorsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recommendations Section -->
+                    <div class="about-section recommendation-section">
+                        <h2 class="section-title">Personalized Recommendations</h2>
+                        <p class="section-text">
+                            Based on your assessment results, we recommend the following actions to manage your risk factors:
+                        </p>
+                        
+                        <div class="methodology-steps">
+                            {% for rec in results.recommendations[:3] %}
+                            <div class="methodology-step">
+                                <div class="step-number">{{ loop.index }}</div>
+                                <div class="step-content">
+                                    <p class="step-description">{{ rec }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="action-container">
+                            <a href="{{ url_for('assessment') }}" class="button action-button">Take Assessment Again <span class="arrow">&#8594;</span></a>
+                        </div>
+                    </div>
+                    
+                    <!-- Medical Disclaimer Section -->
+                    <div class="about-section disclaimer-section">
+                        <h2 class="section-title">Medical Disclaimer</h2>
+                        <div class="disclaimer-content">
+                            <p class="disclaimer-text">
+                                This assessment provides an estimation of risk based on known factors and is not a 
+                                diagnostic tool. Results should be discussed with healthcare professionals and are not a substitute 
+                                for medical screening or consultation.
+                            </p>
+                            <p class="disclaimer-text">
+                                If you are experiencing symptoms such as chest pain, coughing of blood, or unexplained weight loss, 
+                                please consult with a healthcare provider immediately.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">Support</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2025 Neumark</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const userData = {{ user_data | tojson | safe }};
+            const categorizedFactors = {{ categorized_factors | tojson | safe }};
+
+            const modelCtx = document.getElementById('modelComparisonChart');
+            if (modelCtx) {
+                new Chart(modelCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Random Forest', 'XGBoost', 'Logistic Regression', 'Average'],
+                        datasets: [{
+                            label: 'High Risk Probability (%)',
+                            data: [
+                                {{ results.rf_score }},
+                                {{ results.xgb_score }},
+                                {{ results.lr_score }},
+                                {{ results.avg_score }}
+                            ],
+                            backgroundColor: [
+                                'rgba(54, 162, 235, 0.7)',
+                                'rgba(255, 99, 132, 0.7)',
+                                'rgba(255, 206, 86, 0.7)',
+                                'rgba(75, 192, 192, 0.7)'
+                            ],
+                            borderColor: [
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                title: { display: true, text: 'Probability (%)' },
+                                ticks: { color: '#000' },
+                                grid: { color: '#ccc' }
+                            },
+                            x: {
+                                ticks: { color: '#000' },
+                                grid: { display: false }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return context.parsed.y + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function createPieChartWithPercentages(ctx, labels, data, colors, title) {
+                if (!ctx) return;
+                if (labels.length === 0) {
+                    const canvas = ctx.canvas;
+                    const dpr = window.devicePixelRatio || 1;
+                    const rect = canvas.getBoundingClientRect();
+                    canvas.width = rect.width * dpr;
+                    canvas.height = rect.height * dpr;
+                    const context2d = canvas.getContext('2d');
+                    context2d.scale(dpr, dpr);
+                    context2d.font = '12px Arial';
+                    context2d.textAlign = 'center';
+                    context2d.fillStyle = '#6c757d';
+                    context2d.fillText(`No significant ${title.toLowerCase()} identified`, canvas.width / (2 * dpr), canvas.height / (2 * dpr));
+                    return;
+                }
+
+                const total = data.reduce((acc, value) => acc + value, 0);
+
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: data,
+                            backgroundColor: colors.slice(0, data.length),
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    boxWidth: 10,
+                                    padding: 6,
+                                    font: { size: 11 },
+                                    color: '#000'
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        let label = context.label || '';
+                                        if (label) label += ': ';
+                                        const value = context.parsed;
+                                        const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                                        return label + percentage + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const riskCtx = document.getElementById('riskFactorsChart');
+            const riskLabels = Object.keys(categorizedFactors.risk);
+            const riskValues = Object.values(categorizedFactors.risk);
+            const riskColors = ['#FF6384', '#FF9F40', '#FFCD56', '#C9CBCF', '#E7E9ED', '#F08080', '#FFA07A', '#FFDAB9'];
+            createPieChartWithPercentages(riskCtx, riskLabels, riskValues, riskColors, 'Risk Factors');
+
+            const positiveCtx = document.getElementById('positiveFactorsChart');
+            const positiveLabels = Object.keys(categorizedFactors.positive);
+            const positiveValues = Object.values(categorizedFactors.positive);
+            const positiveColors = ['#4BC0C0', '#36A2EB', '#9966FF', '#A0D2DB', '#C4E1E1', '#5F9EA0', '#AFEEEE'];
+            createPieChartWithPercentages(positiveCtx, positiveLabels, positiveValues, positiveColors, 'Positive Factors');
+        });
+    </script>
+</body>
+
+</html>

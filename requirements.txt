@@ -1,0 +1,12 @@
+Flask>=2.0
+# Add other dependencies like pandas, scikit-learn, joblib, xgboost as you use them
+# pandas
+# scikit-learn
+# joblib
+# xgboost
+
+Flask>=2.0
+xgboost==3.0.0
+pandas
+scikit-learn
+joblib

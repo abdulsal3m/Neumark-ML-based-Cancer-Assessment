@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Hero Section with improved styling -->
+    <div class="home-hero-section pfizer-style">
+        <div class="hero-content">
+            <!-- Live Counter with enhanced styling -->
+            <div class="live-counter-container">
+                <span id="live-counter" class="live-counter-number">0</span>
+                <p class="live-counter-label">Lives claimed by lung cancer since Jan 1, 2025</p>
+            </div>
+
+            <!-- Explanatory Statement with improved typography -->
+            <div class="impactful-statement-container">
+                <p class="hero-subtext impactful-statement">
+                    According to the World Health Organization, lung cancer takes 1.8 million lives globally each year.
+                    <br><strong>That's one life lost every 17 seconds.</strong>
+                </p>
+            </div>
+
+            <!-- Model Performance Section with card-like design -->
+            <div class="model-performance-card">
+                <div class="model-performance-info">
+                    <h3 class="model-title">Personalized Risk Assessment</h3>
+                    <p class="model-cta-text">Get your personalized lung cancer risk assessment in just 3 minutes—early awareness leads to informed action.</p>
+                    <div class="model-stats">
+                        <div class="model-stat-item">
+                            <span class="stat-number">90%</span>
+                            <p class="stat-description">Assessment accuracy</p>
+                        </div>
+                        <div class="model-stat-item">
+                            <span class="stat-number">3</span>
+                            <p class="stat-description">Minute completion time</p>
+                        </div>
+                        <div class="model-stat-item">
+                            <span class="stat-number">23</span>
+                            <p class="stat-description">Risk factors analyzed</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="{{ url_for('assessment') }}" class="button hero-button">Start Assessment <span class="arrow">&#8594;</span></a>
+            </div>
+
+            <!-- Video Section with improved container -->
+            <div class="video-container-homepage">
+                <div class="video-wrapper">
+                    <video id="homePageVideo" class="hover-video" width="100%" muted controls loop>
+                        <source src="{{ url_for('static', filename='images/home_vid.mp4') }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Early Detection Section Redesigned -->
+    <section class="early-detection-section">
+        <div class="section-container">
+            <h2 class="section-title">Early Detection is Everything</h2>
+            
+            <div class="facts-cards-container">
+                <!-- Fact Card 1 -->
+                <div class="fact-card">
+                    <div class="fact-card-header">
+                        <div class="fact-icon">
+                            <i class="fas fa-stopwatch"></i>
+                        </div>
+                        <h3 class="fact-title">A Life Lost Every 17 Seconds</h3>
+                    </div>
+                    <div class="fact-card-body">
+                        <p>Every 17 seconds, lung cancer claims a life, totaling more than 1.8 million deaths each year. It remains one of the deadliest forms of cancer, not because it's the most common, but because it's often detected too late. The disease typically progresses without noticeable symptoms, making early treatment difficult.</p>
+                    </div>
+                </div>
+                
+                <!-- Fact Card 2 -->
+                <div class="fact-card">
+                    <div class="fact-card-header">
+                        <div class="fact-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h3 class="fact-title">4 Out of 5 Don't Survive</h3>
+                    </div>
+                    <div class="fact-card-body">
+                        <p>Lung cancer remains one of the most lethal cancers, with only one in five people surviving beyond five years. For every five diagnoses, four lives are lost. This is largely due to late detection, when treatment is less effective. Unlike other cancers with routine screening, lung cancer often spreads silently.</p>
+                    </div>
+                </div>
+                
+                <!-- Fact Card 3 -->
+                <div class="fact-card">
+                    <div class="fact-card-header">
+                        <div class="fact-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="fact-title">Less Common, More Deadly</h3>
+                    </div>
+                    <div class="fact-card-body">
+                        <p>Lung cancer is the third most diagnosed cancer in the U.S., yet far more deadly than breast or prostate cancer. While those cancers have survival-friendly ratios over 6 to 1, lung cancer's is just 1.77 to 1, nearly one death for every two diagnoses. This highlights not only the disease's aggressiveness but also the challenges of early detection.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    <!-- Include the scripts -->
+    <script src="{{ url_for('static', filename='js/live_counter.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/facts_interaction.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/video_hover_play.js') }}"></script>
+    <!-- Add Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}

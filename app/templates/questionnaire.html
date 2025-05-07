@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lung Cancer Risk Assessment - Neumark</title>
+    <link rel="stylesheet" href="/static/css/questionnaire.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .question { display: none; }
+        .question.active { display: block; }
+    </style>
+</head>
+
+<body class="pfizer-style">
+    <header class="site-header">
+        <div class="navbar-container">
+            <div class="logo">
+                <a href="/">
+                    <img src="/static/images/neumark2.png" alt="Neumark Logo" class="logo-img">
+                </a>
+            </div>
+            <nav class="main-nav"> <!-- Added class -->
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('assessment') }}">Start Assessment</a>
+                <a href="{{ url_for('about_us') }}">About Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="assessment-container">
+            <div class="assessment-header">
+                <h2 class="section-title">Lung Cancer Risk Assessment</h2>
+                <p class="assessment-intro">
+                    Please answer the following questions to help estimate your potential risk. Your responses are confidential and will be used to calculate your personalized risk profile.
+                </p>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div class="progress-section">
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar" style="width: 0%;"></div>
+                </div>
+                <div id="progress-text" class="progress-text">0% Complete</div>
+            </div>
+
+            <form id="assessment-form" method="POST" action="{{ url_for('assessment') }}">
+                <div class="question-container">
+                    <!-- Question 0: Age -->
+                    <div class="question active" data-question-index="0">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-calendar-alt"></i> What is your age?</legend>
+                                <div class="input-wrapper">
+                                    <input type="number" id="age" name="Age" min="1" max="120" required class="input-field" placeholder="Enter your age">
+                                    <div class="input-error-message">Please enter a valid age between 1 and 120.</div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 1: Gender -->
+                    <div class="question" data-question-index="1">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-venus-mars"></i> What is your gender?</legend>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" id="gender_1" name="Gender" value="1" required>
+                                        <span>Male</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" id="gender_2" name="Gender" value="2">
+                                        <span>Female</span>
+                                    </label>
+                                </div>
+                                <div class="input-error-message">Please select your gender.</div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Air Pollution -->
+                    <div class="question" data-question-index="2">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-smog"></i> Rate your exposure to Air Pollution</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (Lowest)</span>
+                                        <span class="slider-label-max">10 (Highest)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_2" name="Air Pollution" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_2">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider factors like: living near industrial areas, heavy traffic, or frequent smog in your area.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alcohol Use -->
+                    <div class="question" data-question-index="3">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-wine-glass-alt"></i> Rate your level of Alcohol Use</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Heavy)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_3" name="Alcohol use" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_3">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider your typical alcohol consumption frequency and amount.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dust Allergy -->
+                    <div class="question" data-question-index="4">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-wind"></i> Rate the severity of your Dust Allergy</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Severe)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_4" name="Dust Allergy" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_4">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider symptoms like sneezing, coughing, or breathing difficulties when exposed to dust.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Occupational Hazards -->
+                    <div class="question" data-question-index="5">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-hard-hat"></i> Rate your exposure to Occupational Hazards</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (High)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_5" name="OccuPational Hazards" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_5">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider exposure to chemicals, asbestos, silica dust, radiation, or other workplace hazards.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Genetic Risk -->
+                    <div class="question" data-question-index="6">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-dna"></i> Rate your perceived Genetic Risk</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (High)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_6" name="Genetic Risk" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_6">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider family history of lung cancer or other respiratory conditions.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chronic Lung Disease -->
+                    <div class="question" data-question-index="7">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-lungs"></i> Rate the severity of Chronic Lung Disease, if any</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Severe)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_7" name="chronic Lung Disease" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_7">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider conditions like COPD, emphysema, chronic bronchitis, or asthma.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Balanced Diet -->
+                    <div class="question" data-question-index="8">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-apple-alt"></i> Rate how balanced your diet is</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (Poor)</span>
+                                        <span class="slider-label-max">10 (Excellent)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_8" name="Balanced Diet" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_8">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider consumption of fruits, vegetables, whole grains, and limited processed foods.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Obesity -->
+                    <div class="question" data-question-index="9">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-weight"></i> Rate your level of Obesity</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Severe)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_9" name="Obesity" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_9">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider your body mass index (BMI) or general weight status.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Smoking -->
+                    <div class="question" data-question-index="10">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-smoking"></i> Rate your level of Smoking</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Heavy)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_10" name="Smoking" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_10">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider frequency, duration, and amount of smoking (cigarettes, cigars, pipes, etc.).</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Passive Smoker -->
+                    <div class="question" data-question-index="11">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-cloud"></i> Rate your exposure as a Passive Smoker</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (High)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_11" name="Passive Smoker" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_11">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider time spent around others who smoke at home, work, or social settings.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chest Pain -->
+                    <div class="question" data-question-index="12">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-heartbeat"></i> Rate the frequency/severity of Chest Pain</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Severe)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_12" name="Chest Pain" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_12">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider any pain, pressure, or discomfort in your chest area.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coughing of Blood -->
+                    <div class="question" data-question-index="13">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-tint"></i> Rate the frequency/severity of Coughing Blood</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Severe)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_13" name="Coughing of Blood" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_13">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider any blood or blood-streaked mucus when coughing.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fatigue -->
+                    <div class="question" data-question-index="14">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-bed"></i> Rate your level of Fatigue</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Extreme)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_14" name="Fatigue" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_14">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider persistent tiredness that interferes with daily activities.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weight Loss -->
+                    <div class="question" data-question-index="15">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-weight-hanging"></i> Rate the extent of recent Weight Loss</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Significant)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_15" name="Weight Loss" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_15">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider unexplained weight loss not related to diet or exercise.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shortness of Breath -->
+                    <div class="question" data-question-index="16">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-lungs"></i> Rate the severity of Shortness of Breath</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Severe)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_16" name="Shortness of Breath" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_16">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider difficulty breathing during normal activities or at rest.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wheezing -->
+                    <div class="question" data-question-index="17">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-wind"></i> Rate the frequency/severity of Wheezing</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Severe)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_17" name="Wheezing" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_17">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider high-pitched whistling sounds when breathing.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Swallowing Difficulty -->
+                    <div class="question" data-question-index="18">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-utensils"></i> Rate the severity of Swallowing Difficulty</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Severe)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_18" name="Swallowing Difficulty" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_18">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider any pain or difficulty when swallowing food or liquids.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Clubbing of Finger Nails -->
+                    <div class="question" data-question-index="19">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-hand-paper"></i> Rate the presence/severity of Clubbing of Finger Nails</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Severe)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_19" name="Clubbing of Finger Nails" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_19">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider enlarged fingertips and curved nails (takes shape of upside-down spoon).</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frequent Cold -->
+                    <div class="question" data-question-index="20">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-head-side-cough"></i> Rate the frequency of Frequent Colds</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Very Frequent)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_20" name="Frequent Cold" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_20">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider how often you get colds compared to others around you.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dry Cough -->
+                    <div class="question" data-question-index="21">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-head-side-cough"></i> Rate the frequency/severity of Dry Cough</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Severe)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_21" name="Dry Cough" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_21">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider persistent coughing without mucus production.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="button" class="button next-button">Next <span class="arrow">&#8594;</span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Snoring -->
+                    <div class="question" data-question-index="22">
+                        <div class="question-card">
+                            <fieldset>
+                                <legend class="question-title"><i class="fas fa-bed"></i> Rate the frequency/severity of Snoring</legend>
+                                <div class="slider-container">
+                                    <div class="slider-labels">
+                                        <span class="slider-label-min">0 (None)</span>
+                                        <span class="slider-label-max">10 (Severe)</span>
+                                    </div>
+                                    <div class="slider-with-value">
+                                        <input type="range" id="slider_22" name="Snoring" min="0" max="10" value="5" class="slider" required>
+                                        <output class="slider-value" for="slider_22">5</output>
+                                    </div>
+                                    <div class="slider-description">
+                                        <p>Consider loudness and frequency of snoring during sleep.</p>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="navigation-buttons">
+                                <button type="button" class="button prev-button"><span class="arrow">&#8592;</span> Previous</button>
+                                <button type="submit" class="button submit-button">Submit Assessment</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <footer class="site-footer">
+        
+            <p class="copyright">&copy; 2025 Neumark</p>
+        </footer>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const questions = document.querySelectorAll(".question");
+            const form = document.getElementById("assessment-form");
+            const progressBar = document.getElementById("progress-bar");
+            const progressText = document.getElementById("progress-text");
+            const totalQuestions = questions.length;
+            let currentQuestionIndex = 0;
+
+            function updateProgress() {
+                const progressPercentage = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+                progressBar.style.width = progressPercentage + "%";
+                progressText.textContent = Math.round(progressPercentage) + "% Complete";
+            }
+
+            function showQuestion(index) {
+                questions.forEach((question, i) => {
+                    if (i === index) {
+                        question.classList.add("active");
+                        question.style.display = "block";
+                    } else {
+                        question.classList.remove("active");
+                        question.style.display = "none";
+                    }
+                });
+                updateProgress();
+                const activeQuestion = document.querySelector(".question.active");
+                if (activeQuestion) {
+                    activeQuestion.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+
+            function validateCurrentQuestion() {
+                const currentQuestion = questions[currentQuestionIndex];
+                const inputs = currentQuestion.querySelectorAll("input[required], select[required]");
+                let isValid = true;
+                const errorMessages = currentQuestion.querySelectorAll(".input-error-message");
+                errorMessages.forEach(msg => msg.style.display = "none");
+
+                inputs.forEach(input => {
+                    if (input.type === "radio") {
+                        const name = input.getAttribute("name");
+                        const checked = Array.from(currentQuestion.querySelectorAll(`input[name="${name}"]`)).some(r => r.checked);
+                        if (!checked) {
+                            isValid = false;
+                            const errorMsg = currentQuestion.querySelector(".input-error-message");
+                            if (errorMsg) errorMsg.style.display = "block";
+                        }
+                    } else if (input.type === "number") {
+                        const value = parseInt(input.value);
+                        const min = parseInt(input.getAttribute("min") || 0);
+                        const max = parseInt(input.getAttribute("max") || Infinity);
+                        if (isNaN(value) || value < min || value > max) {
+                            isValid = false;
+                            const errorMsg = input.parentElement.querySelector(".input-error-message");
+                            if (errorMsg) errorMsg.style.display = "block";
+                        }
+                    }
+                });
+
+                return isValid;
+            }
+
+            document.querySelectorAll(".next-button").forEach(button => {
+                button.addEventListener("click", function() {
+                    if (validateCurrentQuestion()) {
+                        if (currentQuestionIndex < totalQuestions - 1) {
+                            currentQuestionIndex++;
+                            showQuestion(currentQuestionIndex);
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll(".prev-button").forEach(button => {
+                button.addEventListener("click", function() {
+                    if (currentQuestionIndex > 0) {
+                        currentQuestionIndex--;
+                        showQuestion(currentQuestionIndex);
+                    }
+                });
+            });
+
+            document.querySelectorAll(".slider").forEach(slider => {
+                const output = slider.closest(".slider-with-value").querySelector(".slider-value");
+                slider.addEventListener("input", function() {
+                    output.textContent = this.value;
+                });
+            });
+
+            form.addEventListener("submit", function(event) {
+                if (!validateCurrentQuestion()) {
+                    event.preventDefault();
+                }
+            });
+
+            showQuestion(0);
+        });
+
+    </script>
+</body>
+</html>

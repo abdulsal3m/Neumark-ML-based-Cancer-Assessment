@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }} - Neumark</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="pfizer-style"> <!-- Added class for global styling -->
+    <header class="site-header"> <!-- Added class -->
+        <div class="navbar-container">
+            <div class="logo">
+                <a href="{{ url_for('index') }}">
+                    <!-- Keep existing logo for now, styling can adjust size -->
+                    <img src="{{ url_for('static', filename='images/neumark2.png') }}" alt="Neumark Logo" class="logo-img"> <!-- Added class -->
+                </a>
+            </div>
+            <nav class="main-nav"> <!-- Added class -->
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('assessment') }}">Start Assessment</a>
+                <a href="{{ url_for('about_us') }}">About Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content"> <!-- Added class -->
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer"> <!-- Added class -->
+        <!-- Placeholder for footer content similar to Pfizer site -->
+        <div class="footer-links">
+             
+        </div>
+        <p class="copyright">&copy; 2025 Neumark</p> <!-- Updated copyright -->
+    </footer>
+    <!-- Add Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Optional: Add other JavaScript files here -->
+</body>
+</html>

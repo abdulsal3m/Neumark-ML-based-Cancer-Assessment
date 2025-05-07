@@ -1,0 +1,37 @@
+# Project Todo List
+
+- [X] 001 Review and update requirements for standardized inputs
+  - [X] Confirm 0-10 range for all scaled inputs
+  - [X] Plan UI changes (slider, counter)
+  - [X] Plan data normalization strategy (Map original 1-N to 0-10)
+  - [X] Plan multi-model training (RF, XGB, LogReg)
+  - [X] Plan ensemble/average result display (Average probability for 'High' class)
+- [X] 002 Update assessment UI to slider and add counter
+  - [X] Modify `questionnaire.html` to use sliders (0-10)
+  - [X] Add question counter display
+  - [X] Update JavaScript for slider input and counter
+  - [X] Update `style.css` for sliders and counter
+- [X] 003 Normalize and preprocess dataset for 0-10 range
+  - [X] Update preprocessing script (`train_models_normalized.py`)
+  - [X] Implement normalization/scaling for 0-10 range
+  - [X] Ensure target encoding remains correct
+  - [X] Split data
+- [X] 004 Train Random Forest, XGBoost, and secondary model
+  - [X] Install XGBoost library
+  - [X] Train RF model on normalized data
+  - [X] Train XGBoost model on normalized data
+  - [X] Train third model (e.g., Logistic Regression/SVM) on normalized data
+  - [X] Evaluate all models
+- [X] 005 Ensemble model results and save all models
+  - [X] Define ensemble strategy (Average probability for 'High' class)
+  - [X] Save all trained models (RF, XGB, LR)
+  - [X] Save scalers/encoders if used
+- [X] 006 Update Flask app for multi-model predictions and display
+  - [X] Update `routes.py` to load all models and scalers
+  - [X] Process slider input (0-10)
+  - [X] Apply normalization/scaling to user input
+  - [X] Get predictions and probabilities from all models
+  - [X] Calculate ensemble/average result
+  - [X] Update `results.html` to display individual and ensemble results
+- [X] 007 Validate multi-model predictions and ensemble output
+- [ ] 008 Report and send updated app to user
