@@ -55,7 +55,7 @@ Powered by a trained ensemble of machine learning models and deployed via Flask 
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/neumark-lung-cancer-risk
+git clone https://github.com/abdulsal3m/neumark-lung-cancer-risk
 
 # Install dependencies
 pip install -r requirements.txt
